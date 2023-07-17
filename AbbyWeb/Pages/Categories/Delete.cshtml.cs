@@ -28,7 +28,8 @@ namespace AbbyWeb.Pages.Categories;
             await _db.SaveChangesAsync();
 
         }
-            return RedirectToPage("Index");
+        TempData["success"] = "Category deleted successfully";
+        return RedirectToPage("Index");
         }
     }
 

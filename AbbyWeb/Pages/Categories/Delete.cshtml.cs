@@ -14,15 +14,20 @@ namespace AbbyWeb.Pages.Categories;
             this._db = db ?? throw new ArgumentNullException(nameof(db));
         }
         public Category Category { get; set; }
-        public void OnGet(int Id)
+        public void OnGet(int id)
         {
-        Category = _db.Category.Find(Id);
+        Category = _db.Category.Find(id);
         }
 
-        public async Task<IActionResult> OnDelete()
+        public async Task<IActionResult> OnPost()
         {
-            _db.Category.Remove(Category);
+        var categoryFromDb =  _db.Category.Find(Category.Id);
+        if (categoryFromDb != null)
+        {
+            _db.Category.Remove(categoryFromDb);
             await _db.SaveChangesAsync();
+
+        }
             return RedirectToPage("Index");
         }
     }
